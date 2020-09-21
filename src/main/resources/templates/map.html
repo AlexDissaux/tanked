@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+	<meta charset="UTF-8">
+	<title>Tanked Game - Map designer</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/map/map.css">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name=="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+	<nav id="nav" class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Tanked</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li ><a href="/">Accueil</a></li>
+				<li class="active"><a href="/create-map">Créer une map</a></li>
+
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li th:if="!${isConnected}"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
+				<li th:if="${isConnected}"><a th:href="'/user/' + ${username}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
+				<li th:if="${isConnected}"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a></li>
+			</ul>
+		</div>
+	</nav>
+	<header id="bar">
+	    <div id="sidebar" class="bar">
+		<span id="mode">Lignes</span>
+		<button type="button" class="btn btn-default" onclick="changeMode(0, this)">Lignes</button>
+		<button type="button" class="btn btn-default" onclick="changeMode(1, this)">Rectangles</button>
+		<button type="button" class="btn btn-default" onclick="changeMode(2, this)">Cercle</button>
+		<button type="button" class="btn btn-default" onclick="changeMode(3, this)">Effacer</button>
+	    </div>
+	    <div id="colorbar" class="bar">
+			Couleur :
+			<input  class="form-control form-color" id="color" type="color" value="#ff0000">
+			<div id="thickbar">
+				Épaisseur :
+				<input  class="form-control form-color" id="thick" type="number" value="1" min="1">
+			</div>
+	    </div>
+	    <div id="savebar" class="bar">
+			<input  class="form-control" id="name" type="text" placeholder="Nom">
+			<button type="button" class="btn btn-primary" onclick="resetSVG()">Réinitialiser</button>
+			<button type="button" id="save" class="btn btn-info" onclick="saveSVG()">Sauver</button>
+	    </div>
+	</header>
+	<main id="dessin">
+	    <div id="svgcontainder"></div>
+		<script th:inline="javascript">
+            let map = /*[[${map}]]*/ null;
+		</script>
+	    <script src="/map/d3.js"></script>
+	    <script src="/map/map.js"></script>
+	    </div>
+	</main>
+    </body>
+</html>

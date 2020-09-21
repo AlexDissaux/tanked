@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tanked Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Tanked</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/create-map">Créer une map</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li th:if="${connectedUser == null}"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
+                <li th:if="${connectedUser != null}"><a th:href="'/user/' + ${connectedUser.getUsername()}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
+                <li th:if="${connectedUser != null}"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="panel panel-default" style="margin-left: auto; margin-right: auto; width: 60%; margin-top: 3%">
+        <div class="panel-heading" th:text="'Profil de ' + ${user.getUsername()}" style="font-weight: bold; font-size: 25px"></div>
+        <div class="panel-body" style="font-size: 18px">
+            <p th:text="'Nombre de points : ' + ${user.getPoints()}"></p>
+            <p>Maps crées : </p>
+            <ul class="list-group">
+                <li class="list-group-item game"  th:each="map : ${user.getMaps()}" style="position:relative">
+                    <span th:text="'Nom : ' + ${map.getName()}"></span>
+                    <div th:if="${connectedUser != null}" style="float: right; top:0">
+                        <a style="float: right; margin-right: 0px;margin-top: -5px" th:href="'/edit-map/' + ${map.getId()}" type="button" id="edit" class="btn btn-info" >Modifier</a>
+                        <form method="POST" action="" style="float: right; margin-right: 10px; margin-top: -5px">
+                            <input type="hidden" name="mapId" th:value="${map.getId()}">
+                            <input  type="submit" class="btn btn-danger" value="Supprimer">
+                        </form>
+                    </div>
+                </li>
+                <li class="list-group-item game" th:if="${user.maps.size() == 0}">
+                    Aucune map créée pour l'instant...
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

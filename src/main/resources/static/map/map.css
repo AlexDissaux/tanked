@@ -1,0 +1,73 @@
+html{
+    height: 100
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+button {
+    font-size: 18px;
+}
+
+main {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+nav{
+    margin-bottom: 0 !important;
+}
+
+header {
+    background-color: #e4f1fe;
+    margin-left: auto;
+    margin-right: auto;
+    width:100%;
+    margin-top:-1.1%;
+}
+
+header div{
+    margin: 15px;
+}
+
+header button {
+    margin: 5px;
+}
+
+svg {
+    display: block;
+    border: 1px #e4f1fe solid;
+}
+
+#color {
+    width:50px; !important;
+    margin-right: 50px;
+}
+#thick {
+    width:150px; !important;
+}
+
+
+
+.form-color {
+    display: inline-block; !important;
+}
+
+.bar {
+    margin-left: auto;
+    margin-right: auto;
+    width: 35%;
+}
+
+#name {
+    width:85%;
+}
+
+#save {
+    margin-left: 45%;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tanked Game</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+    <body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Tanked</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Accueil</a></li>
+                <li><a href="/create-map">Créer une map</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li th:if="!${isConnected}"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
+                <li th:if="${isConnected}"><a th:href="'/user/' + ${username}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
+                <li th:if="${isConnected}"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+        <div class="form-group">
+            <label for="tankName">Choisissez un pseudonyme </label>
+            <input type="text" class="form-control input-lg" id="tankName" value="Guest" onkeyup="setNewName()" th:value="${tankName}">
+        </div>
+        <div class="games">
+            <h3>Parties en cours</h3>
+            <ul class="list-group">
+                <li class="list-group-item game" th:each="game: ${games}">
+                    <span class="game" style="font-size: 20px; margin-top: 15px" th:text="${game.getKey()} + '  -  ' +
+                    ${game.getValue().getTanks().size()}+' joueur' + (${game.getValue().getTanks().size() != 1} ? 's' : '')"></span>
+                    <a  style="float : right; margin-top: -2px" th:href="'/game/'+ ${game.getKey()}" class="btn btn-info">Rejoindre</a>
+
+                </li>
+
+                <li class="list-group-item game" th:if="${games.size() == 0}">
+                    Aucune partie en cours...
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="col-xs-3">
+           <input type="text" class="form-control input-lg" placeholder="Nom de la partie" onkeyup="updateUrl(this)">
+        </div>
+        <a id="createGameLink" href="/game/default" class="btn btn-info" style="font-size: 18px ; margin-top: 5px">Créer une partie</a>
+
+    </main>
+    <script>
+        let createGameLink = document.getElementById("createGameLink");
+        function updateUrl(input) {
+            createGameLink.href = "/game/"+(input.value === "" ? "default" : input.value);
+        }
+
+        let tankName = document.getElementById("tankName");
+        function setNewName() {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "/set-tank-name?tankName="+tankName.value);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(null);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="'Tanked Game #' + ${gameId}">Tanked Game #default</title>
+    <meta name=="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/game-static/game.css">
+</head>
+<body>
+    <div id="leaderboard" class="unselectable"></div>
+
+    <div id='dessin' >
+        <div id="canvascontainder"></div>
+    </div>
+
+	<script th:inline="javascript">
+		var gameId = /*[[${gameId}]]*/ 'default';
+	</script>
+
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+	<script src="/game-static/constants.js"></script>
+	<script src="/game-static/websocket-app.js"></script>
+	<script src="/game-static/canvas.js"></script>
+	<script src="/game-static/events.js"></script>
+	<script src="/game-static/game.js"></script>
+</body>
+</html>
+

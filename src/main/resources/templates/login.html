@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tanked Game</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body class="text-center">
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Tanked</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/create-map">Créer une map</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li th:if="!${isConnected}"><a href="login"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+    <div class="alert alert-danger" th:if="${error}" th:text="${error}" style="margin-right: auto; margin-left: auto; width: 33%;"></div>
+
+
+
+
+
+<form class="form-signin panel panel-default" style="width: 33%;margin-left: auto;margin-right: auto; margin-top: 8%" action="" method="POST">
+    <h1>Se connecter</h1>
+    <input type="text" class="form-control" style="width: 40% ; margin-left: auto;margin-right: auto" name="username" placeholder="Nom d'utlisateur" required autofocus>
+    <input type="password" class="form-control" style="width: 40% ; margin-left: auto;margin-right: auto" name="password" placeholder="Mot de passe" required autofocus>
+    <input type="submit" class="btn btn-info" style="margin-top: 20px ; margin-bottom: 20px ; font-size: 18px;" name="login" value="Se connecter">
+</form>
+
+<form class="form-signin panel panel-default" style="width: 33%;margin-left: auto;margin-right: auto; margin-top: 5%" action="" method="POST">
+    <h1>S'inscrire</h1>
+    <input type="text" class="form-control" style="width: 40% ; margin-left: auto;margin-right: auto" name="username" placeholder="Nom d'utlisateur" required autofocus>
+    <input type="password" class="form-control" style="width: 40% ; margin-left: auto;margin-right: auto" name="password" placeholder="Mot de passe" required autofocus>
+    <input type="password" class="form-control" style="width: 40% ; margin-left: auto;margin-right: auto" name="password2" placeholder="Confirmation du mot de passe" required autofocus>
+    <input type="submit" class="btn btn-info" style="margin-top: 20px ; margin-bottom: 20px ; font-size: 18px;" name="register" value="S'inscrire">
+</form>
+
+
+</body>
+</html>
